@@ -43,7 +43,7 @@ class AuthPresenter extends BasePresenter
 			$this->getUser()->login($data->username, $data->password);
 
 			$this->flashMessage('Úspěšné přihlášení.', 'success');
-			$this->redirect(':Admin:Base:default');
+			$this->redirect(':Admin:User:default');
 
 		} catch (\Nette\Security\AuthenticationException $e) {
 			$form->addError($e->getMessage());
@@ -100,13 +100,13 @@ class AuthPresenter extends BasePresenter
 				$data->phone,
 				$data->password
 			);
-
-			$this->flashMessage('Registrace proběhla úspěšně! Nyní se můžete přihlásit.', 'success');
-			$this->redirect('login');
-
 		} catch (\Exception $e) {
 			$form->addError(FormHelper::ERR_REGISTRATION);
+			return;
 		}
+
+		$this->flashMessage('Registrace proběhla úspěšně! Nyní se můžete přihlásit.', 'success');
+		$this->redirect('login');
 	}
 
 	public function renderDefault(): void
