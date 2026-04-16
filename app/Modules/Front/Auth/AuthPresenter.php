@@ -8,21 +8,23 @@ use App\Helpers\FormHelper;
 
 class AuthPresenter extends BasePresenter
 {
+	#[\Nette\DI\Attributes\Inject]
+	public \App\Models\UserManager $userManager;
 
 	public function createComponentLoginForm(): Form
 	{
 		$form = new Form;
-		$form->addText('username', 'Uživatelské jméno')
-			->setRequired(FormHelper::NameRequired)
-			->addRule($form::MIN_LENGTH, FormHelper::NameMinLengthMsg, FormHelper::NameMinLengthVal);
+		$form->addText('username', FormHelper::LABEL_USERNAME)
+			->setRequired(FormHelper::REQUIRED_USERNAME)
+			->addRule($form::MIN_LENGTH, FormHelper::MSG_NAME_MIN_LENGTH, FormHelper::VAL_NAME_MIN_LENGTH);
 
-		$form->addPassword('password', 'Heslo')
-			->setRequired(FormHelper::PasswordRequired)
-			->addRule($form::MIN_LENGTH, FormHelper::LoginPasswordMinLengthMsg, FormHelper::LoginPasswordMinLengthVal);
+		$form->addPassword('password', FormHelper::LABEL_PASSWORD)
+			->setRequired(FormHelper::REQUIRED_PASSWORD)
+			->addRule($form::MIN_LENGTH, FormHelper::MSG_LOGIN_PASSWORD_MIN_LENGTH, FormHelper::VAL_LOGIN_PASSWORD_MIN_LENGTH);
 
-		$form->addCheckbox('remember', 'Zůstat trvale přihlášený');
+		$form->addCheckbox('remember', FormHelper::LABEL_REMEMBER);
 
-		$form->addSubmit('submit', 'Přihlásit se');
+		$form->addSubmit('submit', FormHelper::LABEL_SUBMIT_LOGIN);
 
 		$form->onSuccess[] = [$this, 'onLoginFormSuccess'];
 
@@ -48,6 +50,64 @@ class AuthPresenter extends BasePresenter
 		}
 	}
 
+	public function createComponentRegisterForm(): Form
+	{
+		$form = new Form;
+
+		$form->addText('firstName', FormHelper::LABEL_FIRST_NAME)
+			->setRequired(FormHelper::REQUIRED_FIRST_NAME);
+
+		$form->addText('lastName', FormHelper::LABEL_LAST_NAME)
+			->setRequired(FormHelper::REQUIRED_LAST_NAME);
+
+		$form->addText('username', FormHelper::LABEL_USERNAME)
+			->setRequired(FormHelper::REQUIRED_USERNAME)
+			->addRule($form::MIN_LENGTH, FormHelper::MSG_NAME_MIN_LENGTH, FormHelper::VAL_NAME_MIN_LENGTH);
+
+		$form->addEmail('email', FormHelper::LABEL_EMAIL)
+			->setRequired(FormHelper::REQUIRED_EMAIL)
+			->addRule($form::EMAIL, FormHelper::MSG_EMAIL_INVALID);
+
+		$form->addText('phone', FormHelper::LABEL_PHONE)
+			->setRequired(FormHelper::REQUIRED_PHONE)
+			->addRule($form::PATTERN, FormHelper::MSG_PHONE_PATTERN, FormHelper::VAL_PHONE_PATTERN);
+
+		$form->addPassword('password', FormHelper::LABEL_PASSWORD_SECURE)
+			->setRequired(FormHelper::REQUIRED_PASSWORD_SECURE)
+			->addRule($form::MIN_LENGTH, FormHelper::MSG_REG_PASSWORD_MIN_LENGTH, FormHelper::VAL_REG_PASSWORD_MIN_LENGTH)
+			->addRule($form::PATTERN, FormHelper::MSG_REG_PASSWORD_PATTERN, FormHelper::VAL_REG_PASSWORD_PATTERN);
+
+		$form->addSubmit('submit', FormHelper::LABEL_SUBMIT_REGISTER);
+
+		$form->onSuccess[] = [$this, 'onRegisterFormSuccess'];
+
+		return $form;
+	}
+
+	public function onRegisterFormSuccess(Form $form, \stdClass $data): void
+	{
+		if ($this->userManager->isDuplicate($data->username, $data->email)) {
+			$form->addError(FormHelper::ERR_DUPLICATE_USER);
+			return;
+		}
+
+		try {
+			$this->userManager->add(
+				$data->username,
+				$data->firstName,
+				$data->lastName,
+				$data->email,
+				$data->phone,
+				$data->password
+			);
+
+			$this->flashMessage('Registrace proběhla úspěšně! Nyní se můžete přihlásit.', 'success');
+			$this->redirect('login');
+
+		} catch (\Exception $e) {
+			$form->addError(FormHelper::ERR_REGISTRATION);
+		}
+	}
 
 	public function renderDefault(): void
 	{
