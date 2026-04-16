@@ -1,10 +1,9 @@
 {layout '../@layout.latte'}
 
 {block content}
-<div class="min-vh-100 d-flex align-items-center justify-content-center bg-light">
-	<div class="card shadow-sm" style="width: 100%; max-width: 420px;">
+<div class="card shadow-sm border-0 rounded-4 w-100" style="max-width: 420px;">
 		<div class="card-body p-4">
-			<h1 class="h4 text-center mb-4">
+			<h1 class="h4 text-center mb-4 fw-bold">
 				<i class="bi bi-person-lock me-2 text-primary"></i>Přihlášení
 			</h1>
 
@@ -34,9 +33,8 @@
 			{/form}
 
 			<p class="text-center text-muted small mt-4">
-				Nemáte účet? <a href="{link register}">Registrujte se</a>
+				Nemáte účet? <a href="{link register}" class="fw-bold text-decoration-none">Registrujte se</a>
 			</p>
 		</div>
-	</div>
 </div>
 {/block}
