@@ -1,6 +1,7 @@
 # Správa uživatelů - Nette Aplikace
 
-Testovací zadání pro správu uživatelů postavené na Nette frameworku. Aplikace umožňuje registraci, přihlašování a evidenci uživatelů.
+Testovací zadání pro správu uživatelů postavené na Nette frameworku.
+Aplikace umožňuje registraci, přihlašování a evidenci uživatelů.
 
 ## Požadavky
 
@@ -16,7 +17,9 @@ Testovací zadání pro správu uživatelů postavené na Nette frameworku. Apli
    ```
 
 2. **Vytvořte a naplňte databázi**:
-   Přímo v kořenové složce projektu se nachází soubor `database.sql`. Přes příkazový řádek jej můžete pohodlně importovat následujícím MySQL příkazem (případně použijte Adminer / phpMyAdmin a použijte "Import"):
+   Přímo v kořenové složce `./` projektu se nachází soubor `database.sql`.
+   Přes příkazový řádek jej můžete pohodlně importovat následujícím MySQL příkazem
+   (případně použijte Adminer / phpMyAdmin a použijte "Import"):
    ```bash
    # Pro instalace bez výchozího root hesla (Laragon)
    mysql -u root < database.sql
