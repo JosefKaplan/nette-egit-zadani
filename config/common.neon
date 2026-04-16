@@ -1,0 +1,37 @@
+# see https://doc.nette.org/en/configuring
+
+parameters:
+	database:
+		host: localhost
+		name: nette_users
+		user: root
+		password: ''
+
+
+application:
+	mapping:
+		Front: App\Modules\Front\**Presenter
+		Admin: App\Modules\Admin\**Presenter
+
+
+database:
+	dsn: 'mysql:host=%database.host%;dbname=%database.name%;charset=utf8mb4'
+	user: %database.user%
+	password: %database.password%
+	options:
+		lazy: true
+
+
+session:
+	savePath: %tempDir%/sessions
+	expiration: 14 days
+
+
+latte:
+	strictParsing: yes
+
+
+di:
+	export:
+		parameters: no
+		tags: no
