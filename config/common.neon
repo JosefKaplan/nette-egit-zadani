@@ -3,7 +3,7 @@
 parameters:
 	database:
 		host: localhost
-		name: nette_users
+		name: nette_zadani
 		user: root
 		password: ''
 
