@@ -6,7 +6,7 @@ use App\Modules\Front\BasePresenter;
 use Nette\Application\UI\Form;
 use App\Helpers\FormHelper;
 
-final class AuthPresenter extends BasePresenter
+class AuthPresenter extends BasePresenter
 {
 
 	public function createComponentLoginForm(): Form

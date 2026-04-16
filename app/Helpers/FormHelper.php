@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Helpers;
 
-final class FormHelper
+class FormHelper
 {
 	public const NameRequired = 'Zadejte prosím své uživatelské jméno.';
 	public const NameMinLengthMsg = 'Uživatelské jméno musí mít alespoň %d znaky.';

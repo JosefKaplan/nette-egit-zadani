@@ -8,7 +8,7 @@ use Nette\Database\Explorer;
 use Nette\Database\Table\ActiveRow;
 use Nette\Security\Passwords;
 
-final class UserManager
+class UserManager
 {
 	public function __construct(
 		private readonly Explorer $explorer,
@@ -36,7 +36,7 @@ final class UserManager
 			->where('username', $username)
 			->fetch();
 	}
-	
+
 	public function isDuplicate(string $username, string $email): bool
 	{
 		return (bool) $this->explorer->table('users')

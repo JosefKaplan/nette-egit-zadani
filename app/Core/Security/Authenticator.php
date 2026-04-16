@@ -3,14 +3,14 @@
 namespace App\Core\Security;
 
 use Nette\Security\AuthenticationException;
-use Nette\Security\IAuthenticator;
+use Nette\Security\Authenticator as NetteAuthenticator;
 use Nette\Security\SimpleIdentity;
 use Nette\Security\Passwords;
 use Nette\Http\Request;
 use App\Models\UserManager;
 use App\Models\LoginLogManager;
 
-final class Authenticator implements IAuthenticator
+class Authenticator implements NetteAuthenticator
 {
 	public function __construct(
 		private readonly UserManager $userManager,

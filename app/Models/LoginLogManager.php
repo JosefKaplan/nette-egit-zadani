@@ -6,7 +6,7 @@ namespace App\Models;
 
 use Nette\Database\Explorer;
 
-final class LoginLogManager
+class LoginLogManager
 {
 	public function __construct(
 		private readonly Explorer $explorer,
