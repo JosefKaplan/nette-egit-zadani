@@ -8,7 +8,32 @@
 				<i class="bi bi-person-lock me-2 text-primary"></i>Přihlášení
 			</h1>
 
-			<p class="text-center text-muted small mt-3">
+			{form loginForm}
+				<div class="alert alert-danger" n:if="$form->hasErrors()">
+					<div n:foreach="$form->getErrors() as $error">{$error}</div>
+				</div>
+
+				<div class="mb-3">
+					{label username class => "form-label fw-semibold" /}
+					{input username class => "form-control form-control-lg"}
+				</div>
+				
+				<div class="mb-3">
+					{label password class => "form-label fw-semibold" /}
+					{input password class => "form-control form-control-lg"}
+				</div>
+				
+				<div class="mb-4 form-check">
+					{input remember class => "form-check-input"}
+					{label remember class => "form-check-label text-muted" /}
+				</div>
+				
+				<div class="d-grid">
+					{input submit class => "btn btn-dark btn-lg rounded-3"}
+				</div>
+			{/form}
+
+			<p class="text-center text-muted small mt-4">
 				Nemáte účet? <a href="{link register}">Registrujte se</a>
 			</p>
 		</div>

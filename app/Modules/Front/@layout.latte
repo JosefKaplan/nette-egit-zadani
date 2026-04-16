@@ -10,14 +10,14 @@
 </head>
 <body class="bg-light d-flex align-items-center justify-content-center vh-100">
 
-<div class="w-100" style="max-width: 400px;">
-    <div n:foreach="$flashes as $flash" n:class="'alert alert-' . $flash->type, 'mb-3'">
-        {$flash->message}
-    </div>
-
-    {include content}
-</div>
-
+	<div class="w-100" style="max-width: 400px;">
+		<div n:foreach="$flashes as $flash" n:class="'alert alert-' . $flash->type, 'mb-3'">
+			{$flash->message}
+		</div>
+		{include content}
+	</div>
+	
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://unpkg.com/nette-forms@3/src/assets/netteForms.js"></script>
 </body>
 </html>
