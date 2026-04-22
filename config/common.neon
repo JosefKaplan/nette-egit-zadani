@@ -5,7 +5,7 @@ parameters:
 		host: localhost
 		name: nette_zadani
 		user: root
-		password: ''
+		password: 'root'
 
 
 application:

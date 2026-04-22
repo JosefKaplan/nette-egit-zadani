@@ -43,4 +43,9 @@ class UserManager
 			->where('username = ? OR email = ?', $username, $email)
 			->fetch();
 	}
+
+	public function findAll(): \Nette\Database\Table\Selection
+	{
+		return $this->explorer->table('users');
+	}
 }
