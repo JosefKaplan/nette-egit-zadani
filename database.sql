@@ -30,5 +30,5 @@ CREATE TABLE IF NOT EXISTS `login_logs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `users` (`username`, `first_name`, `last_name`, `email`, `phone`, `password`, `role`, `is_active`) VALUES
-('admin', 'Hlavní', 'Administrátor', 'admin@example.com', '+420123456789', '$2y$10$Kpw31fS7q7/pQ./r7Kj.T.O8bB5s9I8S3o8L1nZ8fH2i1p5bQ4P3G', 'admin', 1),
-('user1', 'Pepa', 'Novák', 'pepa.novak@example.com', '+420987654321', '$2y$10$Kpw31fS7q7/pQ./r7Kj.T.O8bB5s9I8S3o8L1nZ8fH2i1p5bQ4P3G', 'user', 1);
+('admin', 'Hlavní', 'Administrátor', 'admin@example.com', '+420123456789', '$2y$10$TDs.8sre4gMLG/6rGBPDJus6Wy.huo0TWUUaEGxdDLktprZOeF9hu', 'admin', 1),
+('user1', 'Pepa', 'Novák', 'pepa.novak@example.com', '+420987654321', '$2y$10$TDs.8sre4gMLG/6rGBPDJus6Wy.huo0TWUUaEGxdDLktprZOeF9hu', 'user', 1);
