@@ -42,7 +42,7 @@ class AuthPresenter extends BasePresenter
 
 			$this->getUser()->login($data->username, $data->password);
 
-			$this->flashMessage('Úspěšné přihlášení.', 'success');
+			$this->flashMessage(FormHelper::FLASH_LOGIN_SUCCESS, 'success');
 			$this->redirect(':Admin:User:default');
 
 		} catch (\Nette\Security\AuthenticationException $e) {
@@ -105,7 +105,7 @@ class AuthPresenter extends BasePresenter
 			return;
 		}
 
-		$this->flashMessage('Registrace proběhla úspěšně! Nyní se můžete přihlásit.', 'success');
+		$this->flashMessage(FormHelper::FLASH_REGISTRATION_SUCCESS, 'success');
 		$this->redirect('login');
 	}
 
@@ -122,5 +122,12 @@ class AuthPresenter extends BasePresenter
 	public function actionRegister(): void
 	{
 		$this->checkNotAuthenticated();
+	}
+
+	public function actionLogout(): void
+	{
+		$this->getUser()->logout();
+		$this->flashMessage(FormHelper::FLASH_LOGOUT_SUCCESS, 'info');
+		$this->redirect('login');
 	}
 }

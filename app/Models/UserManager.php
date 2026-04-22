@@ -48,4 +48,31 @@ class UserManager
 	{
 		return $this->explorer->table('users');
 	}
+
+	public function getById(int $id): ?ActiveRow
+	{
+		return $this->explorer->table('users')->get($id);
+	}
+
+	public function update(int $id, array $data): void
+	{
+		$row = $this->getById($id);
+		if (!$row) {
+			throw new \Exception('Uživatel nebyl nalezen.');
+		}
+
+		if (isset($data['password'])) {
+			$data['password'] = $this->passwords->hash($data['password']);
+		}
+
+		$row->update($data);
+	}
+
+	public function delete(int $id): void
+	{
+		$row = $this->getById($id);
+		if ($row) {
+			$row->delete();
+		}
+	}
 }

@@ -45,7 +45,23 @@ class FormHelper
 	public const MSG_PHONE_PATTERN = 'Zadejte telefonní číslo ve validním formátu (např. +420 123 456 789).';
 	public const VAL_PHONE_PATTERN = '^[+]?[0-9\s]+$';
 
-	# ERRORS
+	# ERRORS & PERMISSIONS
 	public const ERR_DUPLICATE_USER = 'Uživatel se stejným jménem nebo e-mailem už existuje.';
 	public const ERR_REGISTRATION = 'Při registraci došlo k chybě. Omlouváme se.';
+	public const ERR_ACCESS_DENIED = 'Přístup odepřen.';
+	public const ERR_USER_NOT_FOUND = 'Uživatel nebyl nalezen.';
+	public const MSG_NO_PERMISSION_EDIT = 'Nemáte oprávnění upravovat cizí profily.';
+	public const MSG_ONLY_ADMIN_ADD = 'Pouze administrátor může přidávat uživatele.';
+
+	# FLASH MESSAGES
+	public const FLASH_USER_UPDATED = 'Údaje byly úspěšně aktualizovány.';
+	public const FLASH_USER_CREATED = 'Uživatel byl úspěšně vytvořen.';
+	public const FLASH_LOGIN_SUCCESS = 'Úspěšné přihlášení.';
+	public const FLASH_LOGOUT_SUCCESS = 'Byli jste úspěšně odhlášeni.';
+	public const FLASH_REGISTRATION_SUCCESS = 'Registrace proběhla úspěšně! Nyní se můžete přihlásit.';
+
+	# ADDITIONAL LABELS
+	public const LABEL_ROLE = 'Role';
+	public const LABEL_IS_ACTIVE = 'Účet je aktivní';
+	public const LABEL_SUBMIT_USER_SAVE = 'Uložit údaje';
 }
