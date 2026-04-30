@@ -34,6 +34,7 @@ class UserManager
 	{
 		return $this->explorer->table('users')
 			->where('username', $username)
+			->where('deleted_at IS NULL')
 			->fetch();
 	}
 
@@ -41,17 +42,22 @@ class UserManager
 	{
 		return (bool) $this->explorer->table('users')
 			->where('username = ? OR email = ?', $username, $email)
+			->where('deleted_at IS NULL')
 			->fetch();
 	}
 
 	public function findAll(): \Nette\Database\Table\Selection
 	{
-		return $this->explorer->table('users');
+		return $this->explorer->table('users')
+			->where('deleted_at IS NULL');
 	}
 
 	public function getById(int $id): ?ActiveRow
 	{
-		return $this->explorer->table('users')->get($id);
+		return $this->explorer->table('users')
+			->where('id', $id)
+			->where('deleted_at IS NULL')
+			->fetch();
 	}
 
 	public function update(int $id, array $data): void
@@ -72,7 +78,7 @@ class UserManager
 	{
 		$row = $this->getById($id);
 		if ($row) {
-			$row->delete();
+			$row->update(['deleted_at' => new \DateTime()]);
 		}
 	}
 }

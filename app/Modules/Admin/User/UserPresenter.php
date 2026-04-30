@@ -73,6 +73,13 @@ class UserPresenter extends BasePresenter
 					return false;
 				});
 
+			$grid->addAction('delete', 'Smazat', 'delete!')
+				->setIcon('bi bi-trash')
+				->setClass('btn btn-xs btn-outline-danger ajax')
+				->setRenderCondition(function ($item) {
+					return $this->getUser()->isInRole('admin') && $this->getUser()->getId() !== $item->id;
+				});
+
 			$grid->addToolbarButton('add', 'Nový uživatel')
 				->setIcon('bi bi-plus-lg')
 				->setClass('btn btn-primary');
@@ -83,7 +90,18 @@ class UserPresenter extends BasePresenter
 		return $grid;
 	}
 
-	public function actionEdit(int $id): void
+	public function handleDelete(int $id): void
+	{
+		if (!$this->getUser()->isInRole('admin') || $this->getUser()->getId() === $id) {
+			$this->error(FormHelper::ERR_ACCESS_DENIED);
+		}
+
+		$this->userManager->delete($id);
+		$this->flashMessage(FormHelper::FLASH_USER_DELETED, 'success');
+		$this->redirect('this');
+	}
+
+	public function actionEdit(int $id)
 	{
 		if (!$this->getUser()->isInRole('admin') && $this->getUser()->getId() !== $id) {
 			$this->flashMessage(FormHelper::MSG_NO_PERMISSION_EDIT, 'danger');

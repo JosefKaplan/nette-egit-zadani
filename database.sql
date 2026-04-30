@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` VARCHAR(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `role` ENUM('user', 'admin') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'user',
   `is_active` TINYINT(1) NOT NULL DEFAULT 1,
+  `deleted_at` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)

@@ -59,6 +59,7 @@ class FormHelper
 	public const FLASH_LOGIN_SUCCESS = 'Úspěšné přihlášení.';
 	public const FLASH_LOGOUT_SUCCESS = 'Byli jste úspěšně odhlášeni.';
 	public const FLASH_REGISTRATION_SUCCESS = 'Registrace proběhla úspěšně! Nyní se můžete přihlásit.';
+	public const FLASH_USER_DELETED = 'Uživatel byl úspěšně smazán.';
 
 	# ADDITIONAL LABELS
 	public const LABEL_ROLE = 'Role';
