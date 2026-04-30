@@ -172,8 +172,12 @@ class UserPresenter extends BasePresenter
 				$this->flashMessage(FormHelper::FLASH_USER_CREATED, 'success');
 			}
 
+		} catch (\Nette\Database\UniqueConstraintViolationException $e) {
+			$this->flashMessage(FormHelper::ERR_DUPLICATE_USER, 'danger');
+			$this->redirect('this');
 		} catch (\Exception $e) {
-			$form->addError('Chyba: ' . $e->getMessage());
+			$this->flashMessage(FormHelper::ERR_REGISTRATION, 'danger');
+			$this->redirect('this');
 		}
 
 		$this->redirect('default');
