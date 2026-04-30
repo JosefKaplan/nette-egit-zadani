@@ -95,7 +95,16 @@ class UserPresenter extends BasePresenter
 			$this->error(FormHelper::ERR_USER_NOT_FOUND);
 		}
 
-		$this['userForm']->setDefaults($userRow->toArray());
+		$defaults = $userRow->toArray();
+		$this['userForm']->setDefaults([
+			'firstName' => $defaults['first_name'] ?? null,
+			'lastName' => $defaults['last_name'] ?? null,
+			'userName' => $defaults['username'] ?? null,
+			'email' => $defaults['email'] ?? null,
+			'phone' => $defaults['phone'] ?? null,
+			'role' => $defaults['role'] ?? null,
+			'isActive' => $defaults['is_active'] ?? null,
+		]);
 	}
 
 	public function actionAdd(): void
@@ -125,9 +134,24 @@ class UserPresenter extends BasePresenter
 					$this->error(FormHelper::ERR_ACCESS_DENIED);
 				}
 
-				$updateData = (array) $data;
-				if (!$data->password)
-					unset($updateData['password']);
+				$updateData = [
+					'username' => $data->userName,
+					'first_name' => $data->firstName,
+					'last_name' => $data->lastName,
+					'email' => $data->email,
+					'phone' => $data->phone,
+				];
+
+				if (isset($data->role)) {
+					$updateData['role'] = $data->role;
+				}
+				if (isset($data->isActive)) {
+					$updateData['is_active'] = $data->isActive;
+				}
+
+				if ($data->password) {
+					$updateData['password'] = $data->password;
+				}
 
 				$this->userManager->update($id, $updateData);
 				$this->flashMessage(FormHelper::FLASH_USER_UPDATED, 'success');
@@ -148,10 +172,10 @@ class UserPresenter extends BasePresenter
 				$this->flashMessage(FormHelper::FLASH_USER_CREATED, 'success');
 			}
 
-			$this->redirect('default');
-
 		} catch (\Exception $e) {
 			$form->addError('Chyba: ' . $e->getMessage());
 		}
+
+		$this->redirect('default');
 	}
 }
