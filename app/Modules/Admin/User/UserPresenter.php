@@ -6,11 +6,15 @@ use App\Models\UserManager;
 use App\Modules\Admin\BasePresenter;
 use Contributte\Datagrid\Datagrid;
 use App\Helpers\FormHelper;
+use App\Modules\Front\FormFactory\FormFactory;
 
 class UserPresenter extends BasePresenter
 {
 	#[\Nette\DI\Attributes\Inject]
 	public UserManager $userManager;
+
+	#[\Nette\DI\Attributes\Inject]
+	public FormFactory $formFactory;
 
 	public function renderDefault(): void
 	{
@@ -104,41 +108,8 @@ class UserPresenter extends BasePresenter
 
 	protected function createComponentUserForm(): \Nette\Application\UI\Form
 	{
-		$form = new \Nette\Application\UI\Form;
-
-		$form->addText('first_name', FormHelper::LABEL_FIRST_NAME)
-			->setRequired(FormHelper::REQUIRED_FIRST_NAME);
-
-		$form->addText('last_name', FormHelper::LABEL_LAST_NAME)
-			->setRequired(FormHelper::REQUIRED_LAST_NAME);
-
-		$form->addText('username', FormHelper::LABEL_USERNAME)
-			->setRequired(FormHelper::REQUIRED_USERNAME);
-
-		$form->addEmail('email', FormHelper::LABEL_EMAIL)
-			->setRequired(FormHelper::REQUIRED_EMAIL);
-
-		$form->addText('phone', FormHelper::LABEL_PHONE)
-			->setRequired(FormHelper::REQUIRED_PHONE);
-
-		$form->addPassword('password', FormHelper::LABEL_PASSWORD)
-			->setNullable()
-			->addCondition($form::FILLED)
-			->addRule($form::MIN_LENGTH, FormHelper::MSG_REG_PASSWORD_MIN_LENGTH, FormHelper::VAL_REG_PASSWORD_MIN_LENGTH)
-			->addRule($form::PATTERN, FormHelper::MSG_REG_PASSWORD_PATTERN, FormHelper::VAL_REG_PASSWORD_PATTERN);
-
-		if ($this->getUser()->isInRole('admin')) {
-			$form->addSelect('role', FormHelper::LABEL_ROLE, [
-				'user' => 'Uživatel',
-				'admin' => 'Administrátor'
-			]);
-			$form->addCheckbox('is_active', FormHelper::LABEL_IS_ACTIVE);
-		}
-
-		$form->addSubmit('submit', FormHelper::LABEL_SUBMIT_USER_SAVE);
-
+		$form = $this->formFactory->createDefaultForm($this->getUser(), true);
 		$form->onSuccess[] = [$this, 'userFormSucceeded'];
-
 		return $form;
 	}
 
@@ -167,9 +138,9 @@ class UserPresenter extends BasePresenter
 				}
 
 				$this->userManager->add(
-					$data->username,
-					$data->first_name,
-					$data->last_name,
+					$data->userName,
+					$data->firstName,
+					$data->lastName,
 					$data->email,
 					$data->phone,
 					$data->password

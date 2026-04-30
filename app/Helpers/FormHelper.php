@@ -36,12 +36,12 @@ class FormHelper
 
 	public const MSG_REG_PASSWORD_MIN_LENGTH = 'Heslo musí mít alespoň %d znaků.';
 	public const VAL_REG_PASSWORD_MIN_LENGTH = 8;
-	
+
 	public const MSG_REG_PASSWORD_PATTERN = 'Bezpečné heslo musí obsahovat alespoň jednu číslici.';
 	public const VAL_REG_PASSWORD_PATTERN = '.*[0-9].*';
 
-	public const MSG_EMAIL_INVALID = 'Sakra, tohle nevypadá jako správný e-mailový formát.';
-	
+	public const MSG_EMAIL_INVALID = 'Špatný formát emailu.';
+
 	public const MSG_PHONE_PATTERN = 'Zadejte telefonní číslo ve validním formátu (např. +420 123 456 789).';
 	public const VAL_PHONE_PATTERN = '^[+]?[0-9\s]+$';
 
